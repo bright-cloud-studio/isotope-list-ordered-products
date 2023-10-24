@@ -13,9 +13,20 @@
   
 namespace Bcs\Module;
 
-use Isotope\Module\OrderHistory;
+use Isotope\Module\ProductList;
 
-class ListOrderedProducts extends OrderHistory
+class ListOrderedProducts extends ProductList
 {
+    // Template
+    protected $strTemplate = 'mod_iso_list_ordered_products';
+
+    protected function findProducts($arrCacheIds = null)
+    {
+        $objUser = FrontendUser::getInstance();
+
+        $arrProducts = [];
+
+        return $arrProducts;
+    }
 
 }
