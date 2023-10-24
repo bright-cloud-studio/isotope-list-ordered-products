@@ -15,6 +15,8 @@ namespace Bcs\Module;
 
 use Isotope\Module\ProductList;
 
+use Contao\FrontendUser;
+
 class ListOrderedProducts extends ProductList
 {
     // Template
