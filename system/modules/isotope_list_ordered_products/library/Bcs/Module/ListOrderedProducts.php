@@ -27,7 +27,7 @@ class ListOrderedProducts extends ProductList
     
     protected function compile() {
         //parent::compile();
-        //$this->Template->test_2 = $this->findProducts();
+        $this->Template->ordered_products = $this->findProducts();
     }
 
     protected function findProducts($arrCacheIds = null)
@@ -51,20 +51,15 @@ class ListOrderedProducts extends ProductList
 		
 		$objOrder = Order::findAll($arrFind);
 		
-		return $objOrder;
 		
-		if ($objOrder) {
-			while($objOrder->next) {
-				$objItem = ProductCollectionItem::findBy('pid', $objOrder->id);
-				if ($objItem) {
-					while ($objItem->next()) {
-						if (!in_array($objItem->product_id, $arrIds)) {
-							$arrIds[] = $objItem->product_id;
-							$arrProducts[] = $objItem->current()->getProduct();
-						}
-					}
+		foreach($objOrder as $order) {
+		    $objItem = ProductCollectionItem::findBy('pid', $order->id);
+		    foreach($objItem as $item) {
+		        if (!in_array($item->product_id, $arrIds)) {
+					$arrIds[] = $item->product_id;
+					$arrProducts[] = $item->current()->getProduct();
 				}
-			}
+		    }
 		}
 
         return $arrProducts;
