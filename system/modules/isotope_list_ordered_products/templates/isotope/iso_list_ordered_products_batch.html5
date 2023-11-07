@@ -1,0 +1,31 @@
+<tr class="<?= $order['class'] ?>">
+    <td class="col_0 col_first sku"><?= $this->generateAttribute('sku') ?></td>
+    <td class="col_1 name">
+    	<div class="name_and_dosage">
+    		<h3><a href="<?= $this->href ?>"><?= $this->generateAttribute('name') ?></a></h3>
+    		<?php if ($this->dosage_form): ?><span class="dosage"><?= strip_tags($this->generateAttribute('dosage_form')) ?></span><?php endif; ?>
+		</div>
+    </td>
+    <td class="col_2 price">
+    	<?= $this->generateAttribute('price') ?>
+    </td>
+    <td class="col_3 col_last add_to_cart">
+    	<!-- <input type="hidden" name="AJAX_PRODUCT[<?php echo $this->product_id; ?>]" value="<?php echo $this->product_id; ?>"> -->
+		<!-- <input type="hidden" name="AJAX_MODULE[<?php echo $this->product_id; ?>]" value="<?php echo $this->module_id; ?>"> -->
+    	
+		    	<?php if($this->actions): ?>
+					<div class="submit_container">
+						<?php if($this->hasOptions): ?>
+							<div class="options">
+								<?php foreach( $this->options as $arrOption ): echo $arrOption['html']; endforeach; ?>
+							</div>
+						<?php endif; ?>
+						
+						<?php if ($this->useQuantity): ?>
+							<label for="quantity_requested_<?php echo $this->raw['id']; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['quantity']; ?>:</label> <input type="number" min="<?php echo $this->raw['min_qty']; ?>" step="<?php echo $this->raw['min_qty']; ?>" class="incrementer text checkMultiples" id="quantity_requested_<?php echo $this->raw['id']; ?>" name="quantity_requested[<?php echo $this->raw['id']; ?>]">
+						<?php endif; ?>
+						<?php foreach ($this->actions as $action) echo $action->generate($this->product); ?>
+					</div>
+				<?php endif; ?>
+    </td>
+</tr>
