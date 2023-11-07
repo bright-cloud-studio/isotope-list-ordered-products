@@ -15,5 +15,5 @@
 ClassLoader::addClasses(array
 (
     'Bcs\Module\ListOrderedProducts'         => 'system/modules/isotope_list_ordered_products/library/Bcs/Module/ListOrderedProducts.php',
-    'Bcs\Frontend\OrderedProductFrontend'    => 'system/modules/isotope_list_ordered_products/library/Bcs/Frontend/OrderedProductFrontend.php'
+    'Bcs\Frontend\OrderedProductsFrontend'    => 'system/modules/isotope_list_ordered_products/library/Bcs/Frontend/OrderedProductsFrontend.php'
 ));
