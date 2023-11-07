@@ -17,6 +17,7 @@ use Contao\Database;
 use Contao\Environment;
 
 use Haste\Generator\RowClass;
+use Haste\Http\Response\HtmlResponse;
 use Haste\Input\Input;
 use Haste\Util\Url;
 
@@ -131,6 +132,8 @@ class ListOrderedProducts extends ProductList
             ->applyTo($arrBuffer);
 
 
+        
+        
         // Create our Add all products button to the template
 		$arrButtons['add_to_cart_all'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartAll'));
 		$this->Template->buttons 	   = $arrButtons;
