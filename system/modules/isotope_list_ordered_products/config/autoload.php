@@ -14,5 +14,6 @@
 // Register Classes
 ClassLoader::addClasses(array
 (
-  'Bcs\Module\ListOrderedProducts'         => 'system/modules/isotope_list_ordered_products/library/Bcs/Module/ListOrderedProducts.php'
+    'Bcs\Module\ListOrderedProducts'         => 'system/modules/isotope_list_ordered_products/library/Bcs/Module/ListOrderedProducts.php'
+    'Bcs\Frontend\OrderedProductFrontend'    => 'system/modules/isotope_list_ordered_products/library/Bcs/Module/ListOrderedProducts.php'
 ));
