@@ -21,7 +21,7 @@ use Isotope\Model\Product;
 use Isotope\Model\ProductCollection\Order;
 
 
-class GroupedList extends \Isotope\Frontend
+class OrderedProductsFrontend extends \Isotope\Frontend
 {
 	    /**
      * Callback for add_to_cart_batch button
