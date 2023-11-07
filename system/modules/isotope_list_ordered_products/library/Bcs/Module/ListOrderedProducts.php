@@ -128,10 +128,16 @@ class ListOrderedProducts extends ProductList
             ->addFirstLast('product_')
             ->addGridRows($this->iso_cols)
             ->addGridCols($this->iso_cols)
-            ->applyTo($arrBuffer)
-        ;
+            ->applyTo($arrBuffer);
 
+
+        // Create our Add all products button to the template
+		$arrButtons['add_to_cart_all'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartAll'));
+		$this->Template->buttons 	   = $arrButtons;
+		
+		
         $this->Template->products = $arrBuffer;
+        
     }
 
     protected function findOrderedProducts($arrCacheIds = null)
@@ -195,11 +201,6 @@ class ListOrderedProducts extends ProductList
 				}
 		    }
 		}
-		
-		
-		// Create our Add all products button to the template
-		$arrButtons['add_to_cart_all'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\GroupedList', 'addToCartBatch'));
-		
         
         // Return our templates items/products
         return $arrProducts;
