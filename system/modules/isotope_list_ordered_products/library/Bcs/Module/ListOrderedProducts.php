@@ -147,11 +147,32 @@ class ListOrderedProducts extends ProductList
 
         
         
-        // Create our Add all products button to the template
-		$arrButtons['add_to_cart_all'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartAll'));
-		$this->Template->buttons 	   = $arrButtons;
-		
-		
+        
+        
+        if($this->enableBatchAdd)
+		{				
+			$arrButtons['add_to_cart_batch'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartBatch'));
+			
+			if (\Input::post('FORM_SUBMIT') == $this->getFormId() && !$this->doNotSubmit) {
+				foreach ($arrButtons as $button => $data) {
+					if (\Input::post($button) != '') {
+						if (isset($data['callback'])) {
+							$objCallback = \System::importStatic($data['callback'][0]);
+							$objCallback->{$data['callback'][1]}($this, $arrConfig);
+						}
+						break;
+					}
+				}
+			}
+		}
+        
+        
+        
+        $this->Template->action        = \ampersand(\Environment::get('request'));
+		$this->Template->formId		   = $this->strFormId;
+		$this->Template->formSubmit    = $this->strFormId;
+        $this->Template->enctype       = 'application/x-www-form-urlencoded';
+        $this->Template->buttons 	   = $arrButtons;
         $this->Template->products = $arrBuffer;
         
     }
@@ -220,6 +241,11 @@ class ListOrderedProducts extends ProductList
         
         // Return our templates items/products
         return $arrProducts;
+    }
+    
+    public function getFormId()
+    {
+        return $this->strFormId;
     }
 
 }
