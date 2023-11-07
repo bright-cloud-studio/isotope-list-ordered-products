@@ -36,6 +36,15 @@ class ListOrderedProducts extends ProductList
 {
     // Template
     protected $strTemplate = 'mod_iso_list_ordered_products';
+    protected $strFormId = 'iso_mod_product_group_list';
+    
+    public function generate()
+    {
+		if($this->enableBatchAdd)
+			$this->strTemplate = 'mod_iso_list_ordered_products_batch';
+
+        return parent::generate();
+    }
     
     protected function compile()
     {
@@ -57,6 +66,10 @@ class ListOrderedProducts extends ProductList
 
         $arrBuffer         = array();
         $arrDefaultOptions = $this->getDefaultProductOptions();
+        
+        if($this->enableBatchAdd)
+			$this->iso_list_layout = 'iso_list_ordered_products_batch';
+        
 
         // Prepare optimized product categories
         //$preloadData = $this->batchPreloadProducts();
@@ -132,29 +145,13 @@ class ListOrderedProducts extends ProductList
             ->applyTo($arrBuffer);
 
 
-
-        if($this->enableBatchAdd)
-		{				
-			$arrButtons['add_to_cart_batch'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\MacPhersons\Frontend\GroupedList', 'addToCartBatch'));
-			
-			if (\Input::post('FORM_SUBMIT') == $this->getFormId() && !$this->doNotSubmit) {
-				foreach ($arrButtons as $button => $data) {
-					if (\Input::post($button) != '') {
-						if (isset($data['callback'])) {
-							$objCallback = \System::importStatic($data['callback'][0]);
-							$objCallback->{$data['callback'][1]}($this, $arrConfig);
-						}
-						break;
-					}
-				}
-			}
-		}
-
-
         
         
         // Create our Add all products button to the template
+		$arrButtons['add_to_cart_all'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartAll'));
 		$this->Template->buttons 	   = $arrButtons;
+		
+		
         $this->Template->products = $arrBuffer;
         
     }
