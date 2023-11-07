@@ -30,7 +30,6 @@ class OrderedProductsFrontend extends \Isotope\Frontend
      */
     public function addToCartBatch($objModule, array $arrConfig = array())
     {   
-
 		$blnAdded = false;    		
 		
 		if (\Input::post('quantities') != "")
