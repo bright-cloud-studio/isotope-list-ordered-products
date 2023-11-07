@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Isotope MacPhersons Grouped List
+ * Bright Cloud Studio's Isotope List Ordered Products
  *
- * Copyright (C) 2019 Andrew Stevens Consulting
+ * Copyright (C) 2023 Bright Cloud Studio
  *
- * @package    asconsulting/isotope_macphersons_groupedlist
- * @link       https://andrewstevens.consulting
- */
- 
- 
+ * @package    bright-cloud-studio/isotope-list-ordered-products
+ * @link       https://www.brightcloudstudio.com/
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
+**/
 
-namespace MacPhersons\Frontend;
+
+namespace Bcs\Frontend;
 
 use Haste\Haste;
 use Isotope\Isotope;
@@ -28,7 +28,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
      * @param object
      * @param array
      */
-    public function addToCartAll($objModule, array $arrConfig = array())
+    public function addToCartBatch($objModule, array $arrConfig = array())
     {   
 
 		$blnAdded = false;    		
