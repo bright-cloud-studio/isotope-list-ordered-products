@@ -1,0 +1,32 @@
+<h1>Batch Template</h1>
+
+<form action="<?php echo $this->action; ?>" id="<?php echo $this->formId.'_products'; ?>" name="iso<?php echo rand(); ?>" class="list_form" method="post" enctype="<?php echo $this->enctype; ?>">
+	<input type="hidden" name="FORM_SUBMIT" value="<?php echo $this->formSubmit; ?>">
+	<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+	<input type="hidden" id="username_test" name="username_test" value="{{user::username}}">
+	<input type="hidden" id="quantities" name="quantities" value="">
+	<input type="hidden" name="vendor_id" value="<?php echo strtolower($this->subcategories[0]['products'][0]['product']->vendor); ?>">
+	
+	<table id="datatable">
+	    <thead>
+	        <tr>
+	            <th class="col_0 col_first sku">SKU</th>
+	            <th class="col_1 name">Name</th>
+	            <th class="col_2 price">Price</th>
+	            <th class="col_3 col_last add_to_cart">Add to Cart</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+		    <?php foreach ($this->products as $product): ?>
+				<?= $product['html'] ?>
+			<?php endforeach; ?>
+	    </tbody>
+	</table>
+	
+	
+	<div class="button_wrapper">
+		<?php foreach( $this->buttons as $name => $button ): ?>
+			<input type="submit" class="submit <?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $button['label']; ?>">
+		<?php endforeach; ?>
+
+</form>
