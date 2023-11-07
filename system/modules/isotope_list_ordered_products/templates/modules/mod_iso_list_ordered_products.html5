@@ -2,34 +2,27 @@
 
 <?php $this->block('content'); ?>
 
-<?= $this->showTemplateVars() ?>
-
-<?php
-
-	foreach($this->test_2 as $itm) {
-		echo $itm->id . "<br>";
-		echo $itm->name . "<br>";
-		echo $itm->long_description. "<br>";
-	}
-
-?>
-
-
-<?php if($this->message): ?>
-
-<p class="<?= $this->type ?> message"><?= $this->message ?></p>
-<?php endif; ?>
-<?php if(!empty($this->products)): ?>
-
-<div class="product_list">
-
-<?php foreach ($this->products as $product): ?>
-<div<?= $product['cssID'] ?> class="<?= $product['class'] ?>">
-<?= $product['html'] ?>
-</div>
-<?php endforeach; ?>
-</div>
-<?= $this->pagination ?>
-<?php endif; ?>
+	<table id="datatable">
+	    <thead>
+	        <tr>
+	            <th class="col_0 col_first sku">SKU</th>
+	            <th class="col_1 name">Name</th>
+	            <th class="col_2 price">Price</th>
+	            <th class="col_3 col_last add_to_cart">Add to Cart</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+		    <?php foreach ($this->products as $product): ?>
+				<?= $product['html'] ?>
+			<?php endforeach; ?>
+	    </tbody>
+	</table>
+	
+	
+	<div class="button_wrapper">
+		<?php foreach( $this->buttons as $name => $button ): ?>
+			<input type="submit" class="submit <?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $button['label']; ?>">
+		<?php endforeach; ?>
+	</div>
 
 <?php $this->endblock(); ?>
