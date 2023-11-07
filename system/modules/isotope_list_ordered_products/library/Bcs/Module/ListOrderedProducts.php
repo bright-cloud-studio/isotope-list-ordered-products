@@ -132,13 +132,29 @@ class ListOrderedProducts extends ProductList
             ->applyTo($arrBuffer);
 
 
+
+        if($this->enableBatchAdd)
+		{				
+			$arrButtons['add_to_cart_batch'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\MacPhersons\Frontend\GroupedList', 'addToCartBatch'));
+			
+			if (\Input::post('FORM_SUBMIT') == $this->getFormId() && !$this->doNotSubmit) {
+				foreach ($arrButtons as $button => $data) {
+					if (\Input::post($button) != '') {
+						if (isset($data['callback'])) {
+							$objCallback = \System::importStatic($data['callback'][0]);
+							$objCallback->{$data['callback'][1]}($this, $arrConfig);
+						}
+						break;
+					}
+				}
+			}
+		}
+
+
         
         
         // Create our Add all products button to the template
-		$arrButtons['add_to_cart_all'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartAll'));
 		$this->Template->buttons 	   = $arrButtons;
-		
-		
         $this->Template->products = $arrBuffer;
         
     }
