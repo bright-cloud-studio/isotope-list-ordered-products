@@ -28,7 +28,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
      * @param object
      * @param array
      */
-    public function addToCartBatch($objModule, array $arrConfig = array())
+    public function addToCartAll($objModule, array $arrConfig = array())
     {   
 
 		$blnAdded = false;    		
