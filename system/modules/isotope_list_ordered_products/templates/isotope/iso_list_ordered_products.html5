@@ -1,0 +1,42 @@
+<tr class="<?= $order['class'] ?>">
+    <td class="col_0 col_first sku"><?= $this->generateAttribute('sku') ?></td>
+    <td class="col_1 name">
+    	<div class="name_and_dosage">
+    		<h3><a href="<?= $this->href ?>"><?= $this->generateAttribute('name') ?></a></h3>
+    		<?php if ($this->dosage_form): ?><span class="dosage"><?= strip_tags($this->generateAttribute('dosage_form')) ?></span><?php endif; ?>
+		</div>
+    </td>
+    <td class="col_2 price">
+    	<?= $this->generateAttribute('price') ?>
+    </td>
+    <td class="col_3 col_last add_to_cart">
+    	<form id="<?= $this->formId; ?>" name="iso<?= rand(); ?>" method="post" enctype="<?= $this->enctype; ?>">
+			<div class="formbody" itemscope itemtype="http://schema.org/Product">
+				<input type="hidden" name="FORM_SUBMIT" value="<?= $this->formSubmit; ?>">
+				<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+				<input type="hidden" name="AJAX_PRODUCT" value="<?= $this->product_id; ?>">
+				<input type="hidden" name="AJAX_MODULE" value="<?= $this->module_id; ?>">
+    	
+		    	<?php if($this->actions): ?>
+					<div class="submit_container">
+						<?php if($this->hasOptions): ?>
+							<div class="options">
+								<?php foreach( $this->options as $arrOption ): echo $arrOption['html']; endforeach; ?>
+							</div>
+						<?php endif; ?>
+						
+						<?php if ($this->useQuantity): ?>
+							<div class="quantity_container">
+								<label for="quantity_requested_<?= $this->raw['id']; ?>" class="invisible">
+								<?= $GLOBALS['TL_LANG']['MSC']['quantity']; ?>:</label> 
+								<input type="text" class="text" id="quantity_requested_<?= $this->raw['id']; ?>" name="quantity_requested" placeholder="<?= $this->minimum_quantity; ?>" maxlength="10" value="1" onFocus="javascript:this.value=''">
+							</div>
+						<?php endif; ?>
+						<?php foreach ($this->actions as $action) echo $action->generate($this->product); ?>
+					</div>
+				<?php endif; ?>
+
+			</div>
+		</form>
+    </td>
+</tr>
