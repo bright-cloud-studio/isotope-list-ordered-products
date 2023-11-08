@@ -14,6 +14,7 @@
 namespace Bcs\Module;
 
 use Contao\Database;
+use Contao\Date;
 use Contao\Environment;
 
 use Haste\Generator\RowClass;
@@ -21,14 +22,18 @@ use Haste\Http\Response\HtmlResponse;
 use Haste\Input\Input;
 use Haste\Util\Url;
 
+use Isotope\Collection\ProductPrice as ProductPriceCollection;
+
 use Isotope\Model\Product;
+use Isotope\Model\ProductCache;
+use Isotope\Model\ProductPrice;
 use Isotope\Module\ProductList;
 use Isotope\Model\ProductCollectionItem;
 use Isotope\Model\ProductCollection\Order;
 use Isotope\Interfaces\IsotopeProduct;
 
 
-use Isotope\Model\ProductCache;
+
 
 use Contao\FrontendUser;
 
@@ -72,13 +77,13 @@ class ListOrderedProducts extends ProductList
         
 
         // Prepare optimized product categories
-        //$preloadData = $this->batchPreloadProducts();
+        $preloadData = $this->batchPreloadProducts();
 
         /** @var \Isotope\Model\Product\Standard $objProduct */
         foreach ($arrProducts as $objProduct) {
             
             
-            /*
+            
             if ($objProduct instanceof Product\Standard) {
                 if (isset($preloadData['categories'][$objProduct->id])) {
                     $objProduct->setCategories($preloadData['categories'][$objProduct->id], true);
@@ -97,7 +102,6 @@ class ListOrderedProducts extends ProductList
                     }
                 }
             }
-            */
 
             $arrConfig = $this->getProductConfig($objProduct);
 
@@ -144,11 +148,6 @@ class ListOrderedProducts extends ProductList
             ->addGridCols($this->iso_cols)
             ->applyTo($arrBuffer);
 
-
-        
-        
-        
-        
         if($this->enableBatchAdd)
 		{				
 			$arrButtons['add_to_cart_batch'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartBatch'));
@@ -165,9 +164,7 @@ class ListOrderedProducts extends ProductList
 				}
 			}
 		}
-        
-        
-        
+
         $this->Template->action        = \ampersand(\Environment::get('request'));
 		$this->Template->formId		   = $this->strFormId;
 		$this->Template->formSubmit    = $this->strFormId;
@@ -209,31 +206,11 @@ class ListOrderedProducts extends ProductList
 		        // If this product id is not already in our saved id numbers
 		        if (!in_array($item->product_id, $arrIds)) {
 		            
-		            
 		            // Add to our stored ids to prevent duplicates
 					$arrIds[] = $item->product_id;
 					// Store a temporary copy of the item/product
 					$tmpItm = $item->current()->getProduct();
-					
-					
-					/*
-					// Assign our values
-					$arrProd = array();
-					$arrProd['id'] 			= $tmpItm->id;
-				    $arrProd['name'] 		= $tmpItm->name;
-				    $arrProd['add_to_cart'] = Url::addQueryString('add_to_cart=' . $tmpItm->id);
-				    $arrProd['add_to_cart_2'] = "testy";
-                    
-                    
-                    // Template our saved values as an 'item_ordered_product'
-                    //$strItemTemplate = ($this->locations_customItemTpl != '' ? $this->locations_customItemTpl : 'item_rep');
-                    $strItemTemplate = 'item_ordered_product';
-                    $objTemplate = new \FrontendTemplate($strItemTemplate);
-                    $objTemplate->setData($arrProd);
-                    $arrProducts[] = $objTemplate->parse();
-                    
-                    */
-                    
+
                     $arrProducts[] = $tmpItm;
 				}
 		    }
@@ -247,5 +224,50 @@ class ListOrderedProducts extends ProductList
     {
         return $this->strFormId;
     }
+    
+    
+    private function batchPreloadProducts()
+    {
+        $query = "SELECT c.pid, GROUP_CONCAT(c.page_id) AS page_ids FROM tl_iso_product_category c JOIN tl_page p ON c.page_id=p.id WHERE p.type!='error_403' AND p.type!='error_404'";
+
+        if (!BE_USER_LOGGED_IN) {
+            $time = Date::floorToMinute();
+            $query .= " AND p.published='1' AND (p.start='' OR p.start<'$time') AND (p.stop='' OR p.stop>'" . ($time + 60) . "')";
+        }
+
+        $query .= " GROUP BY c.pid";
+
+        $data = ['categories' => [], 'prices' => []];
+        $result = Database::getInstance()->execute($query);
+
+        while ($row = $result->fetchAssoc()) {
+            $data['categories'][$row['pid']] = explode(',', $row['page_ids']);
+        }
+
+        $t = ProductPrice::getTable();
+        $arrOptions = [
+            'column' => [
+                "$t.config_id=0",
+                "$t.member_group=0",
+                "$t.start=''",
+                "$t.stop=''",
+            ],
+        ];
+
+        /** @var ProductPriceCollection $prices */
+        $prices = ProductPrice::findAll($arrOptions);
+
+        if (null !== $prices) {
+            foreach ($prices as $price) {
+                if (!isset($data['prices'][$price->pid])) {
+                    $data['prices'][$price->pid] = $price;
+                }
+            }
+        }
+
+        return $data;
+    }
+    
+    
 
 }
