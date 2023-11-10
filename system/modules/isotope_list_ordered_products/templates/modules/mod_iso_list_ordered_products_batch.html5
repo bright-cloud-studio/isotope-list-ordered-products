@@ -5,7 +5,6 @@
 	<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
 	<input type="hidden" id="username_test" name="username_test" value="{{user::username}}">
 	<input type="hidden" id="quantities" name="quantities" value="">
-	<input type="hidden" name="vendor_id" value="<?php echo strtolower($this->subcategories[0]['products'][0]['product']->vendor); ?>">
 	
 	<table id="datatable">
 	    <thead>
@@ -23,10 +22,12 @@
 	    </tbody>
 	</table>
 	
-	
-	<div class="button_wrapper">
-		<?php foreach( $this->buttons as $name => $button ): ?>
-			<input type="submit" class="submit <?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $button['label']; ?>">
-		<?php endforeach; ?>
+	<div class="controls">
+		<div class="submit_container">
+			<?php foreach( $this->buttons as $name => $button ): ?>
+				<input type="submit" class="submit <?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $button['label']; ?>">
+			<?php endforeach; ?>
+		</div>
+	</div>
 
 </form>
