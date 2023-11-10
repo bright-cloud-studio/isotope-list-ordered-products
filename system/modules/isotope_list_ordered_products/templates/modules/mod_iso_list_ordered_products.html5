@@ -1,28 +1,23 @@
-<?php $this->extend('block_searchable'); ?>
-
-<?php $this->block('content'); ?>
-
-	<table id="datatable">
-	    <thead>
-	        <tr>
-	            <th class="col_0 col_first sku">SKU</th>
-	            <th class="col_1 name">Name</th>
-	            <th class="col_2 price">Price</th>
-	            <th class="col_3 col_last add_to_cart">Add to Cart</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-		    <?php foreach ($this->products as $product): ?>
-				<?= $product['html'] ?>
-			<?php endforeach; ?>
-	    </tbody>
-	</table>
-	
-	
-	<div class="button_wrapper">
-		<?php foreach( $this->buttons as $name => $button ): ?>
-			<input type="submit" class="submit <?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $button['label']; ?>">
+<table id="datatable">
+    <thead>
+        <tr>
+            <th class="col_0 col_first sku">SKU</th>
+            <th class="col_1 name">Name</th>
+            <th class="col_2 price">Price</th>
+            <th class="col_3 col_last add_to_cart">Add to Cart</th>
+        </tr>
+    </thead>
+    <tbody>
+	    <?php foreach ($this->products as $product): ?>
+			<?= $product['html'] ?>
 		<?php endforeach; ?>
-	</div>
+    </tbody>
+</table>
 
-<?php $this->endblock(); ?>
+<form>
+<div class="button_wrapper">
+	<?php foreach( $this->buttons as $name => $button ): ?>
+		<input type="submit" class="submit <?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $button['label']; ?>">
+	<?php endforeach; ?>
+</div>
+</form>
