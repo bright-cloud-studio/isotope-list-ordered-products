@@ -1,3 +1,0 @@
-<div class="ordered_product">
-  Name: <?= $this->name ?>
-</div>
