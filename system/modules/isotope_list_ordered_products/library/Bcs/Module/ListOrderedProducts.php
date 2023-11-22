@@ -59,9 +59,16 @@ class ListOrderedProducts extends ProductList
         $arrProducts   = null;
         $arrCacheIds   = null;
 
-
-        $arrProducts = $this->findOrderedProducts();
-
+        
+        
+        if($this->enableOrderedFilter) {
+            $arrProducts = $this->findOrderedProducts();
+        }
+        else {
+            $arrProducts = $this->findAllProducts();
+        }
+        
+        
         // No products found
         if (!\is_array($arrProducts) || empty($arrProducts)) {
             $this->compileEmptyMessage();
@@ -82,7 +89,9 @@ class ListOrderedProducts extends ProductList
         /** @var \Isotope\Model\Product\Standard $objProduct */
         foreach ($arrProducts as $objProduct) {
             
-            
+            // We may run into instances where a previosuly ordred product no longer exists.
+            // In that event, if this product doesnt equal anything then just ignore it
+            if($objProduct != null) {
             
             if ($objProduct instanceof Product\Standard) {
                 if (isset($preloadData['categories'][$objProduct->id])) {
@@ -129,7 +138,7 @@ class ListOrderedProducts extends ProductList
                 'html'      => $objProduct->generate($arrConfig),
                 'product'   => $objProduct,
             );
-        }
+        } 
 
         // HOOK: to add any product field or attribute to mod_iso_productlist template
         if (isset($GLOBALS['ISO_HOOKS']['generateProductList'])
@@ -171,12 +180,15 @@ class ListOrderedProducts extends ProductList
         $this->Template->enctype       = 'application/x-www-form-urlencoded';
         $this->Template->buttons 	   = $arrButtons;
         $this->Template->products = $arrBuffer;
-        
+        }
     }
 
+
+
+
+    // Custom function that returns an array of products that the user previously ordered
     protected function findOrderedProducts($arrCacheIds = null)
     {
-        
         // Get our front end user
         $objUser = FrontendUser::getInstance();
         
@@ -219,6 +231,70 @@ class ListOrderedProducts extends ProductList
         // Return our templates items/products
         return $arrProducts;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // Custom function that returns ALL products that are published
+    protected function findAllProducts($arrCacheIds = null)
+    {
+        // Stores our templated products and their IDs to prevent duplicates
+        $arrProducts = [];
+		$product_ids = [];
+        
+        //$objProducts = Product::findPublished();
+        $objProducts = Product::findPublishedBy('pid', 0);
+        
+        
+        
+        
+        // For each order we found
+		foreach($objProducts as $product) {
+		    
+		    // Find any variants
+		    
+		    $objVariants = Product::findPublishedByPid($product->id);
+		    
+		    if($objVariants) {
+		        foreach($objVariants as $variant) {
+		            $variant->is_variant = 1;
+		            $arrProducts[] = $variant;
+		        }
+		    } else 
+		        $arrProducts[] = $product;
+		    
+            //$arrProducts[] = $product;
+			
+		}
+        
+        
+        // Return our templates items/products
+        return $arrProducts;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public function getFormId()
     {
