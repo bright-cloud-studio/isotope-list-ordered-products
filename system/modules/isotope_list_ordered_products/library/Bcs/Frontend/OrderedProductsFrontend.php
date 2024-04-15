@@ -26,16 +26,12 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     /* Called when clicking the "Add to Cart" button */
     public function addToCartBatch($objModule, array $arrConfig = array())
     {   
-
-        echo '<pre>';
-        var_dump($objModule);
-        echo '</pre>';
-        die();
-
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
 		{
+
+            $objModule
 
             /* Tracks if we have added any products or not within this function */
             $blnAdded = false;
