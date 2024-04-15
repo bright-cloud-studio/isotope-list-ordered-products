@@ -29,7 +29,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
 
         //$objModule = null;
         $objModule->Template->bing = "bong";
-        print_r($objModule);
+        var_dump($objModule);
         die();
         
         /* If we have CSV data in our form */
