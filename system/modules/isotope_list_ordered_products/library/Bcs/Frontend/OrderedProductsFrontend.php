@@ -55,7 +55,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
                 //$objProducts = Product::findBy(['tl_iso_product.sku=?'], [$prod[0]]);
 
                 $prod = Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
-                if($prod == null) {
+                if($prod != null) {
                 
                     // If there is no error after adding this product to the cart
                     if (Isotope::getCart()->addProduct($prod, $prod[1], $arrConfig) !== false)
