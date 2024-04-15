@@ -31,6 +31,8 @@ class OrderedProductsFrontend extends \Isotope\Frontend
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
 		{
+
+            /* Tracks if we have added any products or not within this function */
             $blnAdded = false;
             
 		    // Convert the data string into a PHP array
@@ -47,12 +49,11 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     			    continue;
 
                 /* Find product by SKU */
-                $objProduct = Product::findByPk($id);
-
-                $objProduct = Product::findPublishedBy('sku', array($prod[1]));
+                $objProduct = Product::findPublishedBy('sku', array($prod[0]));
+                //$objProduct = Product::findByPk($id);
                 
-
-                if (Isotope::getCart()->addProduct($objProduct, $quantity, $arrConfig) !== false)
+                // If there is no error after adding this product to the cart
+                if (Isotope::getCart()->addProduct($objProduct, $prod[1], $arrConfig) !== false)
 			        $blnAdded = true;
             }
 
