@@ -28,7 +28,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     {   
 
         echo '<pre>';
-        print_r($objModule);
+        var_dump($objModule);
         echo '</pre>';
         die();
 
