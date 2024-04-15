@@ -28,10 +28,9 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     {
 
         //$objModule = null;
-        $objModule['Template'][] = array('asdf', 'asdf2');
-        $objModule['Template'][] = array('asdf', 'asdf2');
 
-        $this->TEST = '123456';
+        $arr2 = array("test_1", "test_2");
+        array_splice( $objModule, 1, 0, $arr2 ); 
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
