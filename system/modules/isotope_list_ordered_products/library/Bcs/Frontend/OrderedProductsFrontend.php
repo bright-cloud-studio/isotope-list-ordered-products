@@ -51,7 +51,8 @@ class OrderedProductsFrontend extends \Isotope\Frontend
                 /* Find product by SKU */
                 //$objProduct = Product::findPublishedBy('sku', array($prod[0]));
                 //$objProduct = Product::findByPk($id);
-                $objProduct = Product::findBy(['sku' => $prod[0]]);
+                //$objProduct = Product::findBy(['sku' => $prod[0]]);
+                $objProduct = Product::findBy(['tl_iso_product.sku=?'], $prod[0]]);
                 
                 // If there is no error after adding this product to the cart
                 if (Isotope::getCart()->addProduct($objProduct, $prod[1], $arrConfig) !== false)
