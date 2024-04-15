@@ -29,8 +29,6 @@ class OrderedProductsFrontend extends \Isotope\Frontend
 
         //$objModule = null;
         $objModule->Template->bing = "bong";
-        var_dump($objModule);
-        die();
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
