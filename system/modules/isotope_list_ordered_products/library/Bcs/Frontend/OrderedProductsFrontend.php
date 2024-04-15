@@ -49,6 +49,9 @@ class OrderedProductsFrontend extends \Isotope\Frontend
                 /* Find product by SKU */
                 $objProduct = Product::findByPk($id);
 
+                $objProduct = Product::findPublishedBy('sku', array($prod[1]));
+                
+
                 if (Isotope::getCart()->addProduct($objProduct, $quantity, $arrConfig) !== false)
 			        $blnAdded = true;
             }
