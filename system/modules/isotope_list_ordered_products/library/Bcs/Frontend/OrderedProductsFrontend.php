@@ -49,12 +49,8 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     			    continue;
 
                 /* Find product by SKU */
-                //$objProduct = Product::findPublishedBy('sku', array($prod[0]));
-                //$objProduct = Product::findByPk($id);
-                //$objProduct = Product::findBy(['sku' => $prod[0]]);
-                //$objProducts = Product::findBy(['tl_iso_product.sku=?'], [$prod[0]]);
-
                 $objProd = Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
+                /* If we found a product */
                 if($objProd != null) {
                 
                     // If there is no error after adding this product to the cart
@@ -65,6 +61,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
                 
             }
 
+            /* If we have added a product to the cart */
             if($blnAdded) {
                 $_SESSION['ISO_CONFIRM'][] = $GLOBALS['TL_LANG']['MSC']['addedToCartBatch'];
             
