@@ -27,6 +27,31 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     /* Called when clicking the "Add to Cart" button */
     public function addToCartBatch($objModule, array $arrConfig = array())
     {   
+        
+        /* If we have CSV data in our form */
+        if (\Input::post('csv_data') != "")
+		{
+		    // Convert the data string into a PHP array
+		    $str_csv = str_getcsv(\Input::post('csv_data'),',');
+		    // Break that array into chunks of 2 (sku,quantity)
+		    $chunks = array_chunk($str_csv, 2);
+		    
+		    // Loop through our array csv array
+            foreach($chunks as $arr){
+                echo 'SKU: ' . $arr[0] . '<br>QTY: ' . $arr[1] . '<br><br>';
+            }
+		    
+		    
+		    
+		    /* Debug */
+		    //echo '<pre>';
+		    //var_dump($chunks);
+		    //echo '</pre>';
+		    
+		    die();
+		}
+        
+        
 		$blnAdded = false;    		
 		
 		if (\Input::post('quantities') != "")
