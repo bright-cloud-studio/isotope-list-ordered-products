@@ -30,9 +30,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
 		{
-
-            $objModule
-
+            
             /* Tracks if we have added any products or not within this function */
             $blnAdded = false;
             
