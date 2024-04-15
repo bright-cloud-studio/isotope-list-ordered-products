@@ -50,6 +50,11 @@ class OrderedProductsFrontend extends \Isotope\Frontend
 
                 /* Find product by SKU */
                 $objProduct = Product::findPublishedBy('sku', array($prod[0]));
+
+                echo '<pre>';
+                print_r($objProduct);
+                echo '</pre>';
+                
                 //$objProduct = Product::findByPk($id);
                 
                 // If there is no error after adding this product to the cart
