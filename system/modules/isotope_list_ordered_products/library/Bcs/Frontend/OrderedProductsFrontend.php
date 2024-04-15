@@ -24,10 +24,12 @@ class OrderedProductsFrontend extends \Isotope\Frontend
 {
 
     /* Called when clicking the "Add to Cart" button */
-    public function addToCartBatch($objModule, array $arrConfig = array())
+    public function addToCartBatch(&$objModule, array $arrConfig = array())
     {
 
-        &$objModule->bing = "bong";
+        $objModule = null;
+        print_r($objModule);
+        die();
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
