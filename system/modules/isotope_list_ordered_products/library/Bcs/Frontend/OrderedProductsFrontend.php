@@ -10,7 +10,6 @@
  * @license    http://opensource.org/licenses/lgpl-3.0.html
 **/
 
-
 namespace Bcs\Frontend;
 
 use Haste\Haste;
@@ -27,6 +26,12 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     /* Called when clicking the "Add to Cart" button */
     public function addToCartBatch($objModule, array $arrConfig = array())
     {   
+
+        echo '<pre>';
+        print_r($objModule);
+        echo '</pre>';
+        die();
+
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
@@ -57,7 +62,6 @@ class OrderedProductsFrontend extends \Isotope\Frontend
                     if (Isotope::getCart()->addProduct($objProd, $prod[1], $arrConfig) !== false)
                         $blnAdded = true;
                 }
-
                 
             }
 
@@ -71,14 +75,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
             
                 \Controller::redirect(\Haste\Util\Url::addQueryString('continue=' . base64_encode(\Environment::get('request')), $objModule->iso_addProductJumpTo));
             }
-		    
-		    
-		    
-		    /* Debug */
-		    //echo '<pre>';
-		    //var_dump($chunks);
-		    //echo '</pre>';
-		    
+
 		    die();
 		}
         
