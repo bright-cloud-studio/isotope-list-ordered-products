@@ -27,7 +27,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     public function addToCartBatch($objModule, array $arrConfig = array())
     {
 
-        $objModule->bing = "bong";
+        &$objModule->bing = "bong";
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
