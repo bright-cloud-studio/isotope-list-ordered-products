@@ -28,13 +28,10 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     {
 
         //$objModule = null;
-        $objModule['bing'] = "bong";
-        $objModule[] = "bing";
+        $objModule['Template'][] = array('asdf', 'asdf2');
+        $objModule['Template'][] = array('asdf', 'asdf2');
 
-        $cars = array (
-            array("Test","blarg"),
-        );
-        $objModule[] = $cars;
+        $this->TEST = '123456';
         
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
