@@ -31,14 +31,36 @@ class OrderedProductsFrontend extends \Isotope\Frontend
         /* If we have CSV data in our form */
         if (\Input::post('csv_data') != "")
 		{
+            $blnAdded = false;
+            
 		    // Convert the data string into a PHP array
 		    $str_csv = str_getcsv(\Input::post('csv_data'),',');
 		    // Break that array into chunks of 2 (sku,quantity)
 		    $chunks = array_chunk($str_csv, 2);
 		    
 		    // Loop through our array csv array
-            foreach($chunks as $arr){
-                echo 'SKU: ' . $arr[0] . '<br>QTY: ' . $arr[1] . '<br><br>';
+            foreach($chunks as $prod)
+            {
+
+                /* If the quantity is entered as 0, coninue on */
+                if(intval($prod[1])==0)
+    			    continue;
+
+                /* Find product by SKU */
+                $objProduct = Product::findByPk($id);
+
+                if (Isotope::getCart()->addProduct($objProduct, $quantity, $arrConfig) !== false)
+			        $blnAdded = true;
+            }
+
+            if($blnAdded) {
+                $_SESSION['ISO_CONFIRM'][] = $GLOBALS['TL_LANG']['MSC']['addedToCartBatch'];
+            
+                if (!$objModule->iso_addProductJumpTo) {
+                    $this->reload();
+                }
+            
+                \Controller::redirect(\Haste\Util\Url::addQueryString('continue=' . base64_encode(\Environment::get('request')), $objModule->iso_addProductJumpTo));
             }
 		    
 		    
