@@ -28,6 +28,7 @@ class OrderedProductsFrontend extends \Isotope\Frontend
     {
 
         //$objModule = null;
+        $objModule->Template->bing = "bong";
         print_r($objModule);
         die();
         
