@@ -23,11 +23,8 @@ use Isotope\Model\ProductCollection\Order;
 
 class OrderedProductsFrontend extends \Isotope\Frontend
 {
-	    /**
-     * Callback for add_to_cart_batch button
-     * @param object
-     * @param array
-     */
+
+    /* Called when clicking the "Add to Cart" button */
     public function addToCartBatch($objModule, array $arrConfig = array())
     {   
 		$blnAdded = false;    		
