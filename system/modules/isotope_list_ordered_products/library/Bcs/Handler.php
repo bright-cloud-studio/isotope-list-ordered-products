@@ -11,6 +11,9 @@ class Handler
     public function onProcessForm($submittedData, $formData, $files, $labels, $form)
     {
 
+        echo "HIT";
+        die();
+
         if($formData['formID'] == 'bulk_order_csv') {
 
           echo "BING!!!";
