@@ -12,6 +12,9 @@ class Handler
     {
         if($formData['formID'] == 'bulk_order_csv') {
 
+            echo "<pre>";
+            print_r($submittedData);
+            echo "</pre>";
 
             if($submittedData['csv_string'] == null) {
                 echo "NO RAW CSV";
