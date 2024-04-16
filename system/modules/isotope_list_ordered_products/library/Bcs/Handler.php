@@ -12,6 +12,10 @@ class Handler
     {
         if($formData['formID'] == 'bulk_order_csv') {
 
+            if($files == null) {
+                echo "NULLs";
+            }
+            
             // Get the Contao file
             $csv = \FilesModel::findByUuid($files['csv_upload']['uuid']);
             // Get the URL using the Contao file's UUID
