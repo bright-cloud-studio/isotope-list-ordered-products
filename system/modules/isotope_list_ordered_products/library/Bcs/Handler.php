@@ -16,7 +16,7 @@ class Handler
             print_r($submittedData);
             echo "</pre>";
 
-            if($submittedData->csv_string == "") {
+            if($submittedData['csv_string'] == "") {
                 echo "NO RAW CSV";
             }
 
