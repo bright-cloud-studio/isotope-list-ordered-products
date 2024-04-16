@@ -14,3 +14,7 @@
 
 // Frontend Modules
 $GLOBALS['FE_MOD']['isotope']['iso_list_ordered_products'] 	= 'Bcs\Module\ListOrderedProducts';
+
+/* Hooks */
+$GLOBALS['TL_HOOKS']['processFormData'][]      = array('Bcs\Handler', 'onProcessForm');
+
