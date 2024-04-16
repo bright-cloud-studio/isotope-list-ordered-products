@@ -12,18 +12,10 @@ class Handler
     {
         if($formData['formID'] == 'bulk_order_csv') {
 
-            echo "TEST: " . $submittedData['csv_string'];
 
-            echo "<pre>";
-            print_r($submittedData);
-            echo "</pre>";
-
-            if($submittedData['csv_string'] == "") {
-                echo "NO RAW CSV";
-            }
-            
             /* Files is not null, we have an upload submission */
             if($files != null) {
+                echo "FILE FOUND<br>";
                 
                 // Get the Contao file
                 $csv = \FilesModel::findByUuid($files['csv_upload']['uuid']);
@@ -42,6 +34,8 @@ class Handler
                 echo "</pre>";
                 
                 die();
+            } else if($submittedData['csv_string'] != "") {
+                echo "CSV STRING FOUDN";
             }
 
         }
