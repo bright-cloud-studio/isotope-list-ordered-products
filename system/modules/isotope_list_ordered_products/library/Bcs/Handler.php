@@ -15,8 +15,14 @@ class Handler
 {
     protected static $arrUserOptions = array();
 
-    public function onProcessForm($submittedData, $formData, $files, $labels, $form)
+    public function onProcessForm($submittedData, $formData, $files, $labels, &$form)
     {
+
+        echo "<pre>";
+        print_r($form);
+        echp "</pre>";
+        die();
+        
         if($formData['formID'] == 'bulk_order_csv') {
 
 
