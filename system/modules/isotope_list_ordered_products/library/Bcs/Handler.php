@@ -40,7 +40,7 @@ class Handler
                 $blnAdded = false;
 
                 // Convert the data string into a PHP array
-		        $str_csv = str_getcsv(\Input::post('csv_data'),',');
+		        $str_csv = str_getcsv($submittedData['csv_string'],',');
 		        // Break that array into chunks of 2 (sku,quantity)
 		        $chunks = array_chunk($str_csv, 2);
 
