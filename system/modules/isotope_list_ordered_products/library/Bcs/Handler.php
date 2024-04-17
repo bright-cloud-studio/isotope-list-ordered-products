@@ -65,8 +65,8 @@ class Handler
                     if($objProd != null) {
                     
                         // If there is no error after adding this product to the cart
-                        if (Isotope::getCart()->addProduct($objProd, $prod[1], $arrConfig) !== false)
-                            $blnAdded = true;
+                        //if (Isotope::getCart()->addProduct($objProd, $prod[1], $arrConfig) !== false)
+                        //    $blnAdded = true;
                     }
                     
                 }
