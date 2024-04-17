@@ -6,9 +6,6 @@ use Contao\Database;
 use Isotope\Interfaces\IsotopeProduct;
 use Isotope\Isotope;
 
-use Stripe\Climate\Product;
-use Stripe\Product;
-
 use Isotope\Model\Product;
 
 class Handler
@@ -60,7 +57,7 @@ class Handler
         			    continue;
     
                     /* Find product by SKU */
-                    $objProd = \Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
+                    $objProd = Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
                     /* If we found a product */
                     if($objProd != null) {
                     
