@@ -43,14 +43,6 @@ class Handler
 		        $str_csv = str_getcsv($submittedData['csv_string'],',');
 		        // Break that array into chunks of 2 (sku,quantity)
 		        $chunks = array_chunk($str_csv, 2);
-
-
-
-                echo "<pre>";
-                print_r($chunks);
-                echo "</pre>";
-                die();
-
                 
                 // Loop through our array csv array
                 foreach($chunks as $prod)
