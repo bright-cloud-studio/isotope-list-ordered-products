@@ -2,11 +2,12 @@
 
 namespace Bcs;
 
-use Contao\Database;
-use Isotope\Interfaces\IsotopeProduct;
+use Haste\Haste;
 use Isotope\Isotope;
-
+use Isotope\Interfaces\IsotopeProduct;
+use Isotope\Interfaces\IsotopeProductCollection;
 use Isotope\Model\Product;
+use Isotope\Model\ProductCollection\Order;
 
 class Handler
 {
