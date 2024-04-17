@@ -3,6 +3,9 @@
 namespace Bcs;
 
 use Contao\Database;
+use Isotope\Interfaces\IsotopeProduct;
+use Isotope\Isotope;
+
 use Isotope\Model\Product;
 
 class Handler
