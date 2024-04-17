@@ -41,6 +41,7 @@ class Handler
                 echo "</pre>";
                 
                 die();
+                
             } else if($submittedData['csv_string'] != "") {
 
                 /* Tracks if we have added any products or not within this function */
