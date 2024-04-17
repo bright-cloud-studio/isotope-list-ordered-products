@@ -62,10 +62,10 @@ class Handler
                     /* Find product by SKU */
                     $objProd = Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
 
-                    echo "<pre>";
-                    print_r($objProd);
-                    echo "</pre>";
-                    die();
+                    //echo "<pre>";
+                    //print_r($objProd);
+                    //echo "</pre>";
+                    //die();
                     
                     
                     /* If we found a product */
