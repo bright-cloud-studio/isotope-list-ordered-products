@@ -71,8 +71,9 @@ class Handler
                     
                     /* If we found a product */
                     if($objProd != null) {
-                    
+                        
                         // If there is no error after adding this product to the cart
+                        $arrConfig = array();
                         if (Isotope::getCart()->addProduct($objProd, $prod[1], $arrConfig) !== false)
                             $blnAdded = true;
                     }
