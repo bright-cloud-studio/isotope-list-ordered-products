@@ -83,11 +83,6 @@ class Handler
                 /* If we have added a product to the cart */
                 if($blnAdded) {
                     $_SESSION['ISO_CONFIRM'][] = $GLOBALS['TL_LANG']['MSC']['addedToCartBatch'];
-                
-                    if (!$objModule->iso_addProductJumpTo) {
-                        $this->reload();
-                    }
-                
                     \Controller::redirect(\Haste\Util\Url::addQueryString('continue=' . base64_encode(\Environment::get('request')), $objModule->iso_addProductJumpTo));
                 }
 
