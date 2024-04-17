@@ -53,12 +53,12 @@ class Handler
         			    continue;
     
                     /* Find product by SKU */
-                    $objProd = Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
+                    $objProd = \Product::findOneBy(['tl_iso_product.sku=?'],[$prod[0]]);
                     /* If we found a product */
                     if($objProd != null) {
                     
                         // If there is no error after adding this product to the cart
-                        if (Isotope::getCart()->addProduct($objProd, $prod[1], $arrConfig) !== false)
+                        if (\Isotope::getCart()->addProduct($objProd, $prod[1], $arrConfig) !== false)
                             $blnAdded = true;
                     }
                     
