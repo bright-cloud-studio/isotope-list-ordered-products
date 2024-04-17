@@ -3,6 +3,7 @@
 namespace Bcs;
 
 use Contao\Database;
+use Isotope\Model\Product
 
 class Handler
 {
