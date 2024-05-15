@@ -45,8 +45,8 @@ class ListOrderedProducts extends ProductList
     
     public function generate()
     {
-		if($this->enableBatchAdd)
-			$this->strTemplate = 'mod_iso_list_ordered_products_batch';
+		//if($this->enableBatchAdd)
+			//$this->strTemplate = 'mod_iso_list_ordered_products_batch';
 
         return parent::generate();
     }
@@ -79,8 +79,10 @@ class ListOrderedProducts extends ProductList
         $arrBuffer         = array();
         $arrDefaultOptions = $this->getDefaultProductOptions();
         
-        if($this->enableBatchAdd)
-			$this->iso_list_layout = 'iso_list_ordered_products_batch';
+        //if($this->enableBatchAdd)
+		//	$this->iso_list_layout = 'iso_list_ordered_products_batch';
+			
+		//$this->iso_gallery = 'iso_list_ordered_products_customized';
         
 
         // Prepare optimized product categories
@@ -157,8 +159,8 @@ class ListOrderedProducts extends ProductList
             ->addGridCols($this->iso_cols)
             ->applyTo($arrBuffer);
 
-        if($this->enableBatchAdd)
-		{				
+        //if($this->enableBatchAdd)
+		//{				
 			$arrButtons['add_to_cart_batch'] = array('label' => $GLOBALS['TL_LANG']['MSC']['buttonLabel']['add_to_cart'], 'callback' => array('\Bcs\Frontend\OrderedProductsFrontend', 'addToCartBatch'));
 			
 			if (\Input::post('FORM_SUBMIT') == $this->getFormId() && !$this->doNotSubmit) {
@@ -172,7 +174,7 @@ class ListOrderedProducts extends ProductList
 					}
 				}
 			}
-		}
+		//}
 
         $this->Template->action        = \ampersand(\Environment::get('request'));
 		$this->Template->formId		   = $this->strFormId;
@@ -279,23 +281,7 @@ class ListOrderedProducts extends ProductList
         return $arrProducts;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     public function getFormId()
     {
         return $this->strFormId;
@@ -343,7 +329,6 @@ class ListOrderedProducts extends ProductList
 
         return $data;
     }
-    
-    
+
 
 }
