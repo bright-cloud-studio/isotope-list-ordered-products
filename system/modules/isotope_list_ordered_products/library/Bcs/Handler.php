@@ -17,11 +17,6 @@ class Handler
 
     public function onProcessForm($submittedData, $formData, $files, $labels, &$form)
     {
-
-        echo "<pre>";
-        print_r($form);
-        echp "</pre>";
-        die();
         
         if($formData['formID'] == 'bulk_order_csv') {
 
